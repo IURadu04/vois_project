@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - Task Manager</title>
+  <title>Verificare email - Task Manager</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
 <header>
   <div class="container header-flex">
-    <h1>Task Manager</h1>
+    <h1>Verificare Email</h1>
     <div class="header-actions">
       <button id="themeToggleBtn" class="theme-toggle">
         <i data-feather="moon"></i> <span class="label">Dark</span>
@@ -20,16 +20,17 @@
 </header>
 
 <div class="login-container">
-  <h2>Autentificare</h2>
-  <form id="loginForm" method="post" action="#">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" placeholder="Introduceți username" required />
-    <label for="password">Parola:</label>
-    <input type="password" id="password" name="password" placeholder="Introduceți parola" required />
-    <button type="submit">Login</button>
+  <h2>Introduce codul primit pe email</h2>
+  <form id="verifyForm">
+    <label for="vUser">Username:</label>
+    <input type="text" id="vUser" required />
+
+    <label for="vCode">Cod de verificare:</label>
+    <input type="text" id="vCode" required />
+
+    <p id="verifyMsg" class="error-msg"></p>
+    <button type="submit">Verifică</button>
   </form>
-  <p style="margin-top:10px;">Nu ai cont? <a href="register.html">Înregistrează-te</a></p>
-  <p id="loginError" class="error-msg"></p>
 </div>
 <script src="https://unpkg.com/feather-icons"></script>
 <script src="app.js"></script>

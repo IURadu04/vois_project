@@ -1,16 +1,6 @@
-/* ===============================
-   Modern Admin UI – 2025 Edition
-   - Light/Dark theme
-   - Mobile-first, highly responsive
-   - No HTML changes required
-   =============================== */
 
-/* Google Font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* ----------- THEME TOKENS ----------- */
 :root {
-  /* Colors */
   --primary: #1976d2;
   --primary-600: #135ba1;
   --bg: #f5f7fb;
@@ -22,14 +12,14 @@
   --warning: #ffa000;
   --danger: #d32f2f;
 
-  /* Effects */
+
   --radius: 12px;
   --shadow-1: 0 4px 12px rgba(0,0,0,0.06);
   --shadow-2: 0 12px 30px rgba(0,0,0,0.08);
   --focus: 0 0 0 3px rgba(25,118,210,0.18);
   --transition: 180ms cubic-bezier(.2,.8,.2,1);
 
-  /* Typography & sizing */
+
   --font: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   --fs-900: clamp(1.4rem, 2.2vw + 1rem, 2rem);
   --fs-800: 1.25rem;
@@ -38,12 +28,12 @@
   --fs-500: .95rem;
   --fs-400: .9rem;
 
-  /* Layout */
+
   --container-w: 1100px;
   --pad: 16px;
 }
 
-/* Manual dark theme trigger: add data-theme="dark" on <html> or <body> */
+/* dark theme trigger*/
 :root[data-theme="dark"],
 body[data-theme="dark"] {
   --primary: #62a8ff;
@@ -58,7 +48,7 @@ body[data-theme="dark"] {
   --focus: 0 0 0 3px rgba(98,168,255,0.25);
 }
 
-/* Auto dark based on OS */
+
 @media (prefers-color-scheme: dark) {
   :root {
     --primary: #62a8ff;
@@ -74,7 +64,7 @@ body[data-theme="dark"] {
   }
 }
 
-/* ----------- RESET / BASE ----------- */
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -92,18 +82,18 @@ body {
               var(--bg);
 }
 
-/* Utility container */
+
 .container {
   width: min(96%, var(--container-w));
   margin-inline: auto;
 }
 
-/* Headings */
+
 h1 { font-size: var(--fs-900); margin: 0; }
 h2 { font-size: var(--fs-800); margin: 0 0 8px; }
 h3 { font-size: var(--fs-700); margin: 0 0 8px; }
 
-/* Links & buttons */
+
 a { color: var(--primary); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
@@ -126,7 +116,7 @@ button:hover { background: var(--primary-600); transform: translateY(-1px); }
 button:active { transform: translateY(0); }
 button:focus-visible { outline: none; box-shadow: var(--focus); }
 
-/* Inputs */
+
 input, select, textarea {
   width: 100%;
   padding: 12px 14px;
@@ -143,14 +133,12 @@ input:focus, select:focus, textarea:focus {
   box-shadow: var(--focus);
 }
 
-/* Error / helper text */
 .error-msg {
   color: var(--danger);
   font-size: var(--fs-500);
   margin-top: 6px;
 }
 
-/* ----------- HEADER ----------- */
 header {
   position: sticky;
   top: 0;
@@ -182,7 +170,6 @@ header button:hover {
   color: var(--text);
 }
 
-/* Optional theme toggle button style (if you add one) */
 .theme-toggle {
   background: var(--surface);
   color: var(--text);
@@ -190,7 +177,6 @@ header button:hover {
 }
 .theme-toggle:hover { background: color-mix(in hsl, var(--surface) 80%, var(--primary) 20%); }
 
-/* ----------- AUTH CARD (login) ----------- */
 .login-container {
   width: min(480px, 94%);
   margin: 8vh auto;
@@ -210,7 +196,6 @@ header button:hover {
   margin-top: 6px;
 }
 
-/* ----------- LAYOUT SECTIONS ----------- */
 section {
   margin: 22px 0;
 }
@@ -225,7 +210,7 @@ ul,
   margin-inline: auto;
 }
 
-/* Cards */
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -233,7 +218,6 @@ ul,
   box-shadow: var(--shadow-1);
 }
 
-/* ----------- FORMS (grid adaptive) ----------- */
 form {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -254,7 +238,6 @@ form {
   justify-self: start;
 }
 
-/* Two-column on wider screens */
 @media (min-width: 880px) {
   #taskForm {
     grid-template-columns: repeat(2, 1fr);
@@ -264,7 +247,6 @@ form {
   #cancelEdit { grid-column: 1 / 2; }
 }
 
-/* Cancel edit secondary style */
 #cancelEdit {
   background: transparent;
   color: var(--muted);
@@ -276,7 +258,6 @@ form {
   background: color-mix(in hsl, var(--surface) 85%, var(--primary) 10%);
 }
 
-/* ----------- TABLES (responsive → cards on mobile) ----------- */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -300,13 +281,11 @@ td button {
   box-shadow: none;
 }
 
-/* Edit & Delete accents */
 td button.editTaskBtn { background: var(--warning); }
 td button.editTaskBtn:hover { background: #ff8f00; }
 td button.deleteTaskBtn { background: var(--danger); }
 td button.deleteTaskBtn:hover { background: #b71c1c; }
 
-/* Progress element */
 progress {
   width: 110px;
   height: 10px;
@@ -318,7 +297,6 @@ progress::-webkit-progress-bar { background: #e5e7eb; border-radius: 999px; }
 progress::-webkit-progress-value { background: var(--primary); border-radius: 999px; }
 progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; }
 
-/* --- Mobile: table → stacked cards without changing HTML --- */
 @media (max-width: 760px) {
   table, thead, tbody, th, td, tr { display: block; }
   thead { position: absolute; top: -9999px; left: -9999px; }
@@ -337,7 +315,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
     gap: 8px;
     padding: 8px 0 !important;
   }
-  /* Labels via nth-child (match your table headers) */
   td:nth-child(1)::before  { content: "ID"; color: var(--muted); }
   td:nth-child(2)::before  { content: "Titlu"; color: var(--muted); }
   td:nth-child(3)::before  { content: "Descriere"; color: var(--muted); }
@@ -348,7 +325,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
   td:nth-child(8)::before  { content: "Deadline"; color: var(--muted); }
   td:nth-child(9)::before  { content: "Acțiuni"; color: var(--muted); }
 
-  /* Actions align */
   td:nth-child(9) {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -356,7 +332,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
   td:nth-child(9) button { width: 100%; }
 }
 
-/* ----------- TEAMS LIST ----------- */
 #teamsSection { margin-top: 26px; }
 
 #teamForm {
@@ -400,7 +375,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
   #teamList li button { width: 100%; }
 }
 
-/* ----------- TEAM DETAILS CARD ----------- */
 #teamDetails {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -438,7 +412,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
   #addMemberForm { grid-template-columns: 1fr; }
 }
 
-/* ----------- CHAT ----------- */
 #chatSection { margin-top: 18px; }
 
 .chat-box {
@@ -471,7 +444,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
   margin-top: 8px;
 }
 
-/* ----------- ACCESSIBILITY & MISC ----------- */
 :focus-visible { outline: none; box-shadow: var(--focus); border-radius: 10px; }
 
 ::selection {
@@ -479,7 +451,6 @@ progress::-moz-progress-bar { background: var(--primary); border-radius: 999px; 
   color: #000;
 }
 
-/* Subtle entrance animation for cards/blocks */
 @keyframes float-in {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -494,7 +465,6 @@ table,
   animation: float-in .35s var(--transition);
 }
 
-/* --- HEADER FLEX LAYOUT --- */
 .header-flex {
   display: flex;
   align-items: center;
@@ -508,7 +478,6 @@ table,
   gap: 10px;
 }
 
-/* --- THEME TOGGLE BUTTON --- */
 .theme-toggle {
   background: var(--surface);
   color: var(--text);
@@ -523,7 +492,6 @@ table,
   background: color-mix(in hsl, var(--surface) 80%, var(--primary) 20%);
 }
 
-/* --- LOGOUT BUTTON --- */
 .logout-btn {
   background: var(--danger);
   color: #fff;
@@ -535,3 +503,23 @@ table,
 .logout-btn:hover {
   background: #b71c1c;
 }
+
+#pendingUsers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+}
+#pendingUsers li {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+#pendingUsers li:last-child { border-bottom: 0; }
+
