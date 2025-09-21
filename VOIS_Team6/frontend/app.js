@@ -104,48 +104,10 @@ function initRegister() {
         try { const d = await resp.json(); if (d.detail) msg = d.detail; } catch {}
         throw new Error(msg);
       }
-      alert('Cont creat! Verifică email-ul pentru codul de confirmare.');
+      alert('Cont creat cu succes! Acum te poți autentifica.');
       window.location.href = 'index.html';
     } catch (err) {
       errEl.textContent = err.message;
-    }
-  });
-}
-
-function initVerify() {
-  const form = document.getElementById('verifyForm');
-  if (!form) return;
-
-  // Permite și verificarea prin query params ?username=...&code=...
-  const params = new URLSearchParams(location.search);
-  const qpUser = params.get('username');
-  const qpCode = params.get('code');
-  if (qpUser && qpCode) {
-    document.getElementById('vUser').value = qpUser;
-    document.getElementById('vCode').value = qpCode;
-  }
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = document.getElementById('vUser').value.trim();
-    const code = document.getElementById('vCode').value.trim();
-    const msgEl = document.getElementById('verifyMsg');
-    msgEl.textContent = '';
-    try {
-      const resp = await fetch(`${API_BASE}/auth/verify`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, code })
-      });
-      if (!resp.ok) {
-        let txt = 'Cod invalid sau eroare la verificare.';
-        try { const j = await resp.json(); if (j.detail) txt = j.detail; } catch {}
-        throw new Error(txt);
-      }
-      alert('Email verificat! Așteaptă aprobarea adminului pentru a te autentifica.');
-      window.location.href = 'index.html';
-    } catch (err) {
-      msgEl.textContent = err.message;
     }
   });
 }
@@ -641,81 +603,12 @@ async function initEmployeePage() {
   }
 }
 
-/*user approval (admin) */
-async function loadPendingUsers() {
-  const ul = document.getElementById('pendingUsers');
-  if (!ul) return;
-  ul.innerHTML = '<li>Încărcare...</li>';
-  const token = localStorage.getItem('token');
-  try {
-    const resp = await fetch(`${API_BASE}/admin/pending_users`, {
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    if (!resp.ok) throw new Error();
-    const users = await resp.json();
-    ul.innerHTML = '';
-    if (!users.length) {
-      ul.innerHTML = '<li><em>Niciun utilizator în așteptare.</em></li>';
-      return;
-    }
-    users.forEach(u => {
-      const li = document.createElement('li');
-      li.innerHTML = `
-        <span>${u.username} <small style="color:var(--muted)">(${u.email || 'fără email'})</small></span>
-        <div style="display:flex;gap:8px;">
-          <button class="approveUserBtn" data-id="${u.id}">Aprobă</button>
-          <button class="rejectUserBtn" data-id="${u.id}" style="background:var(--danger)">Șterge</button>
-        </div>
-      `;
-      ul.appendChild(li);
-    });
-    ul.querySelectorAll('.approveUserBtn').forEach(btn => {
-      btn.addEventListener('click', () => approveUser(btn.dataset.id));
-    });
-    ul.querySelectorAll('.rejectUserBtn').forEach(btn => {
-      btn.addEventListener('click', () => deleteUser(btn.dataset.id));
-    });
-  } catch {
-    ul.innerHTML = '<li style="color:var(--danger)">Endpoint-ul de pending users nu este disponibil.</li>';
-  }
-}
-
-async function approveUser(userId) {
-  const token = localStorage.getItem('token');
-  const resp = await fetch(`${API_BASE}/admin/approve_user/${userId}`, {
-    method: 'POST',
-    headers: { 'Authorization': 'Bearer ' + token }
-  });
-  if (resp.ok) {
-    alert('Utilizator aprobat.');
-    loadPendingUsers();
-  } else {
-    alert('Eroare la aprobare.');
-  }
-}
-
-async function deleteUser(userId) {
-  if (!confirm('Sigur ștergi acest utilizator?')) return;
-  const token = localStorage.getItem('token');
-  const resp = await fetch(`${API_BASE}/admin/users/${userId}`, {
-    method: 'DELETE',
-    headers: { 'Authorization': 'Bearer ' + token }
-  });
-  if (resp.ok) {
-    alert('Utilizator șters.');
-    loadPendingUsers();
-  } else {
-    alert('Eroare la ștergere.');
-  }
-}
-
 /*boot */
 window.addEventListener('DOMContentLoaded', () => {
   if (window.feather) feather.replace();
   initThemeToggle();
   initLogin();
   initRegister();
-  initVerify();
 
   // Admin page?
   const isAdminPage = !!document.getElementById('tasksTbody');
@@ -728,7 +621,6 @@ window.addEventListener('DOMContentLoaded', () => {
     initTeamForms();
     loadTasks();
     loadTeams();
-    loadPendingUsers();
   }
 
   // Employee page?
