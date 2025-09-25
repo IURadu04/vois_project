@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <script>
+      if (!localStorage.getItem('token')) location.href = 'index.html';
+      if (String(localStorage.getItem('is_admin')) !== 'true') location.href = 'employee.html';
+    </script>
+    <header>
+      <div class="container header-flex">
+        <a id="homeTitle" class="brand" href="admin.html">Task Manager</a>
+        <div class="header-actions">
+          <button id="themeToggleBtn" class="theme-toggle"><span class="label">Dark</span></button>
+          <button class="logout-btn" onclick="logout()"><span class="label">Logout</span></button>
+        </div>
+      </div>
+    </header>
+    <main class="container page-stack">
+      <section class="card">
+        <h2>Gestionare Task-uri</h2>
+        <form id="taskForm" class="stack mt12">
+          <h3 id="taskFormTitle">Adaugă Task Nou</h3>
+          <label for="title">Titlu</label>
+          <input id="title" required />
+          <label for="description">Descriere</label>
+          <input id="description" />
+          <label for="assigned_to">Asignat către</label>
+          <select id="assigned_to">
+            <option value="">(selectează user)</option>
+          </select>
+          <label for="team_id">Echipa</label>
+          <select id="team_id">
+            <option value="">(selectează echipă)</option>
+          </select>
+          <label for="status">Status</label>
+          <select id="status">
+            <option value="pending">pending</option>
+            <option value="in_progress">in_progress</option>
+            <option value="done">done</option>
+          </select>
+          <label for="progress">Progres %</label>
+          <input id="progress" type="range" min="0" max="100" value="0" />
+          <div id="progressValue" class="muted">0%</div>
+          <label for="deadline">Deadline</label>
+          <input id="deadline" type="date" />
+          <input id="taskId" type="hidden" />
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">Salvează Task</button>
+            <button type="button" id="cancelEdit" class="btn-secondary">Anulează</button>
+          </div>
+        </form>
+        <div class="table-wrap mt16">
+          <table id="tasksTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Titlu</th>
+                <th>Descriere</th>
+                <th>User</th>
+                <th>Echipă</th>
+                <th>Progres</th>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Acțiuni</th>
+              </tr>
+            </thead>
+            <tbody id="tasksTbody"></tbody>
+          </table>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Gestionare Echipe</h2>
+        <form id="teamForm" class="stack mt12">
+          <label for="teamName">Nume echipă</label>
+          <input id="teamName" required />
+          <button type="submit" class="mt8">Creează Echipa</button>
+        </form>
+        <ul id="teamList" class="list mt12"></ul>
+        <div id="teamDetails" class="mt16" style="display: none;">
+          <h3 id="teamDetailsName">Detalii Echipa</h3>
+          <p class="mt8"><strong>Membri:</strong></p>
+          <ul id="memberList" class="list mt8"></ul>
+          <form id="addMemberForm" class="stack mt12">
+            <label for="memberUserId">Adaugă membru (User ID)</label>
+            <input id="memberUserId" type="number" />
+            <button type="submit" class="mt8">Adaugă</button>
+          </form>
+          <p id="teamMessage" class="error-msg"></p>
+          <div id="chatSection" class="mt16">
+            <p><strong>Chat echipă</strong></p>
+            <div id="chatMessages" class="chat-box mt8"></div>
+            <div class="stack mt8">
+              <label for="chatInput" class="sr-only">Mesaj</label>
+              <input id="chatInput" placeholder="Scrie un mesaj..." />
+              <button id="sendChatBtn" type="button" class="mt8">Trimite</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Gestionare Utilizatori</h2>
+        <div class="table-wrap mt12">
+          <table id="usersTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Echipă</th>
+                <th>Rol</th>
+                <th class="ta-right">Acțiuni</th>
+              </tr>
+            </thead>
+            <tbody id="usersTbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
