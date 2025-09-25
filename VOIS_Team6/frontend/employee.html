@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard Angajat</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <script>
+      if (!localStorage.getItem('token')) location.href = 'index.html';
+      if (String(localStorage.getItem('is_admin')) === 'true') location.href = 'admin.html';
+    </script>
+
+    <header>
+      <div class="container header-flex">
+        <a id="homeTitle" class="brand" href="employee.html">Task Manager</a>
+        <div class="header-actions">
+          <button id="themeToggleBtn" class="theme-toggle">
+            <i data-feather="moon"></i>
+            <span class="label">Dark</span>
+          </button>
+          <button class="logout-btn" onclick="logout()">
+            <i data-feather="log-out"></i>
+            <span class="label">Logout</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container page-stack">
+      <section class="card">
+        <div class="row-between">
+          <h2>Task-urile mele</h2>
+          <label class="toggle-inline">
+            <input type="checkbox" id="showDoneToggle" />
+            <span>Arată terminate</span>
+          </label>
+        </div>
+
+        <div class="table-wrap mt12">
+          <table id="employeeTasksTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Titlu</th>
+                <th>Descriere</th>
+                <th>Progres</th>
+                <th>Status</th>
+                <th>Deadline</th>
+                <th>Acțiuni</th>
+              </tr>
+            </thead>
+            <tbody id="employeeTasksTbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Chat echipă</h2>
+
+        <div id="chatMessages" class="chat-box mt12"></div>
+
+        <div class="stack mt8">
+          <label for="chatInput" class="sr-only">Mesaj</label>
+          <input id="chatInput" placeholder="Scrie un mesaj..." />
+          <button id="sendChatBtn" type="button" class="mt8">Trimite</button>
+        </div>
+
+        <p id="chatInfo" class="muted mt8"></p>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
