@@ -1,0 +1,381 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+:root {
+  --primary: #1976d2;
+  --primary-600: #135ba1;
+
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+
+  --text: #1f2937;
+  --muted: #6b7280;
+
+  --border: #e5e7eb;
+
+  --radius: 14px;
+
+  --shadow-1: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-2: 0 18px 40px rgba(0, 0, 0, 0.08);
+
+  --container-w: 980px;
+
+  --gap: 16px;
+}
+
+html[data-theme="dark"],
+body[data-theme="dark"] {
+  --primary: #62a8ff;
+  --primary-600: #2b6cb0;
+
+  --bg: #0f141b;
+  --surface: #151a21;
+
+  --text: #e5e7eb;
+  --muted: #9aa3af;
+
+  --border: #283140;
+}
+
+/* -----------------------------------------------------------
+   Base
+----------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+.container {
+  width: min(96%, var(--container-w));
+  margin-inline: auto;
+}
+
+.page-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mt8  { margin-top: 8px; }
+.mt12 { margin-top: 12px; }
+.mt16 { margin-top: 16px; }
+.mt24 { margin-top: 24px; }
+
+.muted {
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* -----------------------------------------------------------
+   Header
+----------------------------------------------------------- */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  background: color-mix(in oklab, var(--surface) 90%, transparent);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(1.2) blur(6px);
+}
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 0;
+}
+
+.brand {
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* -----------------------------------------------------------
+   Buttons
+----------------------------------------------------------- */
+
+button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  border: 0;
+  border-radius: 12px;
+
+  padding: 10px 14px;
+
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+
+  box-shadow: var(--shadow-1);
+}
+
+button:hover {
+  background: var(--primary-600);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: color-mix(in oklab, var(--surface) 85%, var(--primary) 15%);
+}
+
+.theme-toggle {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.theme-toggle:hover {
+  background: color-mix(in oklab, var(--surface) 85%, var(--primary) 15%);
+}
+
+.logout-btn {
+  background: #d32f2f;
+}
+
+.logout-btn:hover {
+  background: #b71c1c;
+}
+
+.btn-submit {
+  width: 100%;
+}
+
+/* Helpers row */
+
+.row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* -----------------------------------------------------------
+   Cards & Forms
+----------------------------------------------------------- */
+
+.card,
+.auth-card {
+  width: 100%;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow-2);
+
+  padding: 16px;
+}
+
+.auth-card {
+  width: min(520px, 100%);
+  margin: 8vh auto;
+}
+
+label {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 10px 0 6px;
+}
+
+input,
+select {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  background: var(--surface);
+  color: var(--text);
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid color-mix(in oklab, var(--primary) 40%, transparent);
+}
+
+.error-msg {
+  color: #d32f2f;
+}
+
+/* -----------------------------------------------------------
+   Tables
+----------------------------------------------------------- */
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+thead {
+  background: linear-gradient(90deg, var(--primary), var(--primary-600));
+  color: #fff;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ta-right {
+  text-align: right;
+}
+
+tbody tr:hover {
+  background: color-mix(in oklab, var(--surface) 92%, var(--primary) 8%);
+}
+
+/* Aliniere acțiuni la dreapta în Utilizatori + ordonare butoane */
+#usersTable td:last-child {
+  text-align: right;
+}
+
+.actions-inline {
+  display: inline-flex;
+  gap: 10px;
+}
+
+/* -----------------------------------------------------------
+   Lists (Echipe)
+----------------------------------------------------------- */
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+}
+
+.list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
+
+/* -----------------------------------------------------------
+   Chat
+----------------------------------------------------------- */
+
+.chat-box {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  height: 260px;
+  overflow: auto;
+
+  padding: 10px;
+
+  background: color-mix(in oklab, var(--surface) 95%, #000 0%);
+}
+
+.chat-message {
+  background: color-mix(in oklab, var(--primary) 18%, var(--surface));
+  border-radius: 12px;
+
+  padding: 8px 12px;
+  width: fit-content;
+  max-width: 92%;
+
+  margin: 8px 0;
+}
+
+.chat-message .time {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+/* -----------------------------------------------------------
+   Progress
+----------------------------------------------------------- */
+
+progress {
+  width: 110px;
+  height: 10px;
+  vertical-align: middle;
+}
+
+progress::-webkit-progress-bar {
+  background: #e5e7eb;
+  border-radius: 999px;
+}
+
+progress::-webkit-progress-value {
+  background: var(--primary);
+  border-radius: 999px;
+}
